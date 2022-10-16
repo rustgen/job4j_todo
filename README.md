@@ -22,4 +22,4 @@
     - The TaskStore object takes a SessionFactory parameter through the constructor.
 
 
-#Photo
+#Photos
