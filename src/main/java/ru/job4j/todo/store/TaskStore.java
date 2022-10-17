@@ -36,27 +36,35 @@ public class TaskStore {
         return task;
     }
 
-    public void update(int id, Task task) {
+    public boolean update(int id, Task task) {
+        boolean result = false;
         try (Session session = sf.openSession()) {
             session.beginTransaction();
-            task.setId(id);
-            task.setCreated(LocalDateTime.now());
-            session.update(task);
+            Query query = session.createQuery(
+                            "UPDATE Task SET name = :fName, description = :fDescription WHERE id = :fId");
+            result = query
+                    .setParameter("fName", task.getName())
+                    .setParameter("fDescription", task.getDescription())
+                    .setParameter("fId", id)
+                    .executeUpdate() > 0;
             session.getTransaction().commit();
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
         }
+        return result;
     }
 
-    public void delete(int id) {
+    public boolean delete(int id) {
+        boolean result = false;
         try (Session session = sf.openSession()) {
             session.beginTransaction();
-            session.createQuery("DELETE Task WHERE id = :fId")
-                    .setParameter("fId", id).executeUpdate();
+            result = session.createQuery("DELETE Task WHERE id = :fId")
+                    .setParameter("fId", id).executeUpdate() > 0;
             session.getTransaction().commit();
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
         }
+        return result;
     }
 
     public List<Task> findAll() {
@@ -112,14 +120,16 @@ public class TaskStore {
         return result;
     }
 
-    public void completedId(int id) {
+    public boolean completedId(int id) {
+        boolean result = false;
         try (Session session = sf.openSession()) {
             session.beginTransaction();
-            session.createQuery("UPDATE Task t SET t.completed = true WHERE t.id = :fId").
-                    setParameter("fId", id).executeUpdate();
+            result = session.createQuery("UPDATE Task t SET t.completed = true WHERE t.id = :fId")
+                    .setParameter("fId", id).executeUpdate() > 0;
             session.getTransaction().commit();
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
         }
+        return result;
     }
 }

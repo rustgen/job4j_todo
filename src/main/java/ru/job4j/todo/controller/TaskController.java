@@ -18,11 +18,6 @@ public class TaskController {
         this.service = service;
     }
 
-    @GetMapping("/index")
-    public String index(Model model) {
-        return "index";
-    }
-
     @GetMapping("/tasks")
     public String tasks(Model model) {
         model.addAttribute("tasks", service.findAll());

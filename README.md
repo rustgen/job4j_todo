@@ -1,8 +1,39 @@
-#Technical task - project "TODO list"
+# Technical task - project "TODO list"
 
-# Technology stack: Spring boot, Thymeleaf, Bootstrap, Hibernate, PostgreSql
+# Environment that must be installed before launch
 
-#Description.
+JDK 18 required!
+
+# Technology stack:
+
+Spring boot
+<version>2.7.4</version>
+
+Thymeleaf
+
+Bootstrap
+version 4.4.1
+
+Hibernate
+<version>5.6.11.Final</version>
+
+PostgreSql
+<version>42.5.0</version>
+
+liquibase
+<version>4.15.0</version>
+
+com.h2database
+<version>2.1.214</version>
+
+# Application launch process
+
+After setting the environment and technologies before starting the Main method, 
+you need to create a database with the name ' todolist ' ,
+run the Liquibase Update operation to create tables in the database from the update_001.sql file,
+and then run the Main class.
+
+# Description.
 
 1. Schema of the Task table with the fields id, description, created, done. Location /db/
    Upload the script via liquibase.
@@ -22,4 +53,20 @@
     - The TaskStore object takes a SessionFactory parameter through the constructor.
 
 
-#Photos
+# Photos
+
+![](images/main.png)
+
+![](images/allTasks.png)
+
+![](images/completedTasks.png)
+
+![](images/outstandingTasks.png)
+
+![](images/taskInfo.png)
+
+![](images/addTask.png)
+
+![](images/edit.png)
+
+![](images/afterDeleting.png)

@@ -19,12 +19,12 @@ public class TaskService {
         return store.add(task);
     }
 
-    public void update(int id, Task task) {
-        store.update(id, task);
+    public boolean update(int id, Task task) {
+        return store.update(id, task);
     }
 
-    public void delete(int id) {
-        store.delete(id);
+    public boolean delete(int id) {
+        return store.delete(id);
     }
 
     public List<Task> findAll() {
@@ -47,7 +47,7 @@ public class TaskService {
         return store.getStatuses(false);
     }
 
-    public void completedId(int id) {
-        store.completedId(id);
+    public boolean completedId(int id) {
+        return store.completedId(id);
     }
 }
