@@ -1,72 +1,60 @@
 # Technical task - project "TODO list"
 
-# Environment that must be installed before launch
+[![readme Quotes](https://quotes-github-readme.vercel.app/api?quote=Create%20all%20your%20plans%20just%20in%20one%20list!)](https://github.com/piyushsuthar/github-readme-quotes)
+## Environment before launch
 
-JDK 18 required!
+[Intellij IDEA](https://www.jetbrains.com/idea/download/ )
 
-# Technology stack:
+[PostgreSql](https://www.postgresql.org/download/)
 
-Spring boot
-<version>2.7.4</version>
-
-Thymeleaf
-
-Bootstrap
-version 4.4.1
-
-Hibernate
-<version>5.6.11.Final</version>
-
-PostgreSql
-<version>42.5.0</version>
-
-liquibase
-<version>4.15.0</version>
-
-com.h2database
-<version>2.1.214</version>
-
-# Application launch process
-
-After setting the environment and technologies before starting the Main method, 
-you need to create a database with the name ' todolist ' ,
-run the Liquibase Update operation to create tables in the database from the update_001.sql file,
-and then run the Main class.
-
-# Description.
-
-1. Schema of the Task table with the fields id, description, created, done. Location /db/
-   Upload the script via liquibase.
-
-2. Views.
-    - A page with a list of all tasks. The table displays the name, date of creation and status (completed or not)
-    - On the page with the list, add the "Add task" button.
-    - On the list page, add three links: All, Completed, New. When translating via links, the table should display: all tasks, only completed tasks, or only new ones.
-    - When you click on a task, you go to a page with a detailed description.
-    - On the page with a detailed description, add buttons: Done, Edit, Delete.
-    - If you clicked on the execute button, then the task will be transferred to the status completed.
-    - The edit button takes the user to a separate page for editing.
-    - Delete button, deletes the task and goes to the list of all tasks.
-
-3. The application must have three layers: Controllers, Services, Persistences.
-    - The SessionFactory object is created once in the Main class with the @Bean annotation.
-    - The TaskStore object takes a SessionFactory parameter through the constructor.
+[JDK 18](https://www.oracle.com/java/technologies/downloads/#java17)
 
 
-# Photos
+## Technology stack:
+
+### All these technologies I describe here lay in the [POM](pom.xml) file in this project with necessary versions.
+
+![java](https://img.shields.io/badge/Java-18-red)
+![Spring Boot](https://img.shields.io/badge/Spring-Boot-green)
+![Thymeleaf](https://img.shields.io/badge/Thymeleaf-blue)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-4.4.1-blue)
+![JDBC](https://img.shields.io/badge/JDBC-DB-yellowgreen)
+![Liquibase](https://img.shields.io/badge/Liquibase-4.15.0-red)
+![PostgresSQL](https://img.shields.io/badge/PostgresSQL-42.5.0-brightgreen)
+![H2](https://img.shields.io/badge/H2-Database-yellowgreen)
+![Mockito](https://img.shields.io/badge/Mockito-test-brightgreen)
+![Junit](https://img.shields.io/badge/Junit-4.13.2-red)
+![Lombok](https://img.shields.io/badge/Lombok-1.18.22-lightgrey)
+
+## Application launch process
+
+PostgreSQL with password: **password**
+```sql
+    create database todolist
+```
+ ---
+#### Create tables in PostgreSQL through LiquiBase: 
+```
+Maven -> plugins -> liquibase -> liquibase:update
+```
+
+ ---
+In the root of project through ***Main*** file you can launch the app.
+![](images/launch.png)
+
+
+
+#### Use this app to your heart's content.
+   
+## Main Page
 
 ![](images/main.png)
 
+## Site functionality
 ![](images/allTasks.png)
-
 ![](images/completedTasks.png)
-
 ![](images/outstandingTasks.png)
-
 ![](images/taskInfo.png)
-
 ![](images/addTask.png)
-
 ![](images/edit.png)
-
 ![](images/afterDeleting.png)
