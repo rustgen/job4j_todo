@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.todo.model.Task;
 import ru.job4j.todo.service.TaskService;
 
+import javax.servlet.http.HttpSession;
+
+import static ru.job4j.todo.util.UserSession.getSession;
+
 @Controller
 public class TaskController {
 
@@ -19,61 +23,71 @@ public class TaskController {
     }
 
     @GetMapping("/tasks")
-    public String tasks(Model model) {
+    public String tasks(Model model, HttpSession session) {
         model.addAttribute("tasks", service.findAll());
+        getSession(model, session);
         return "tasks";
     }
 
     @GetMapping("/formAddTask")
-    public String addTask(Model model) {
+    public String addTask(Model model, HttpSession session) {
+        getSession(model, session);
         return "addTask";
     }
 
     @PostMapping("/createTask")
-    public String createTask(@ModelAttribute Task task) {
+    public String createTask(@ModelAttribute Task task, Model model, HttpSession session) {
         service.add(task);
+        getSession(model, session);
         return "redirect:/tasks";
     }
 
     @GetMapping("/taskInfo/{taskId}")
-    public String taskInfo(Model model, @PathVariable("taskId") int id) {
+    public String taskInfo(Model model, HttpSession session, @PathVariable("taskId") int id) {
         model.addAttribute("task", service.findById(id));
+        getSession(model, session);
         return "taskInfo";
     }
 
     @GetMapping("/completedTasks/{taskId}")
-    public String completedId(@PathVariable("taskId") int id) {
+    public String completedId(@PathVariable("taskId") int id, Model model, HttpSession session) {
         service.completedId(id);
+        getSession(model, session);
         return "redirect:/tasks";
     }
 
     @GetMapping("/delete/{taskId}")
-    public String delete(@PathVariable("taskId") int id) {
+    public String delete(@PathVariable("taskId") int id, Model model, HttpSession session) {
         service.delete(id);
+        getSession(model, session);
         return "redirect:/tasks";
     }
 
     @GetMapping("/formUpdateTask/{taskId}")
-    public String formUpdateTask(Model model, @PathVariable("taskId") int id) {
+    public String formUpdateTask(Model model, HttpSession session, @PathVariable("taskId") int id) {
         model.addAttribute("task", service.findById(id));
+        getSession(model, session);
         return "updateTask";
     }
 
     @PostMapping("/updateTask")
-    public String updateTask(@ModelAttribute Task task) {
+    public String updateTask(@ModelAttribute Task task, Model model, HttpSession session) {
         service.update(task.getId(), task);
+        getSession(model, session);
         return "redirect:/tasks";
     }
 
     @GetMapping("/completedTasks")
-    public String completedTasks(Model model) {
+    public String completedTasks(Model model, HttpSession session) {
         model.addAttribute("tasks", service.completed());
+        getSession(model, session);
         return "completedTasks";
     }
 
     @GetMapping("/newTasks")
-    public String newTasks(Model model) {
+    public String newTasks(Model model, HttpSession session) {
         model.addAttribute("tasks", service.notCompleted());
+        getSession(model, session);
         return "newTasks";
     }
 }

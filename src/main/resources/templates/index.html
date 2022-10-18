@@ -37,6 +37,14 @@
                     <a class="nav-item nav-link" th:href="@{/completedTasks}">Completed Tasks</a>
                     <a class="nav-item nav-link" th:href="@{/newTasks}">New Tasks</a>
                     <a class="nav-item nav-link" th:href="@{/formAddTask}">Add New Task</a>
+                    <a class="nav-item nav-link" th:if="${user.name == 'Guest'}" th:href="@{/loginPage}">
+                        <span th:text="${user.name}"></span>
+                        <span> | Log In</span>
+                    </a>
+                    <a class="nav-item nav-link" th:if="${user.name != 'Guest'}" th:href="@{/logout}">
+                        <span th:text="${user.name}"></span>
+                        <span> | Log Out</span>
+                    </a>
 
                 </div>
             </div>
