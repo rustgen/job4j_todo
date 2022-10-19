@@ -1,5 +1,7 @@
 package ru.job4j.todo.store;
 
+import lombok.AllArgsConstructor;
+import net.jcip.annotations.ThreadSafe;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -10,21 +12,19 @@ import ru.job4j.todo.model.User;
 import java.util.Optional;
 
 @Repository
+@AllArgsConstructor
+@ThreadSafe
 public class UserStore {
     private static final Logger LOG = LoggerFactory.getLogger(UserStore.class.getName());
 
     private final SessionFactory sf;
 
-    public UserStore(SessionFactory sf) {
-        this.sf = sf;
-    }
-
     public Optional<User> add(User user) {
         Optional<User> optional = Optional.empty();
         try (Session session = sf.openSession()) {
             session.beginTransaction();
+            session.save(user);
             optional = Optional.of(user);
-            session.save(optional);
             session.getTransaction().commit();
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
@@ -32,7 +32,7 @@ public class UserStore {
         return optional;
     }
 
-    public Optional<User> findUserByLoginAndPwd(String login, String password) {
+    public Optional<User> findUserByLoginAndPassword(String login, String password) {
         Optional optional = Optional.empty();
         try (Session session = sf.openSession()) {
             session.beginTransaction();

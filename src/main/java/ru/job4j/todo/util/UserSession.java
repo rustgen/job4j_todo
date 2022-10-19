@@ -1,12 +1,12 @@
 package ru.job4j.todo.util;
 
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 import org.springframework.ui.Model;
 import ru.job4j.todo.model.User;
 
 import javax.servlet.http.HttpSession;
 
-@NoArgsConstructor
+@UtilityClass
 public final class UserSession {
 
     public static void getSession(Model model, HttpSession session) {

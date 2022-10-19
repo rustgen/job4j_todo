@@ -1,5 +1,7 @@
 package ru.job4j.todo.controller;
 
+import lombok.AllArgsConstructor;
+import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,13 +18,11 @@ import java.util.Optional;
 import static ru.job4j.todo.util.UserSession.getSession;
 
 @Controller
+@AllArgsConstructor
+@ThreadSafe
 public class UserController {
 
     private final UserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     @GetMapping("/loginPage")
     public String loginPage(Model model, @RequestParam(name = "fail", required = false) Boolean fail,
@@ -42,7 +42,7 @@ public class UserController {
 
     @PostMapping("/login")
     public String loginPage(@ModelAttribute User user, HttpServletRequest req) {
-        Optional<User> userOpt = userService.findUserByLoginAndPwd(
+        Optional<User> userOpt = userService.findUserByLoginAndPassword(
                 user.getLogin(), user.getPassword()
         );
         if (userOpt.isEmpty()) {

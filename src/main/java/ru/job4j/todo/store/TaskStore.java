@@ -1,5 +1,6 @@
 package ru.job4j.todo.store;
 
+import net.jcip.annotations.ThreadSafe;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
+@ThreadSafe
 public class TaskStore {
 
     private static final Logger LOG = LoggerFactory.getLogger(TaskStore.class.getName());

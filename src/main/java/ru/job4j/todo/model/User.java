@@ -4,15 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "users")
 @Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Entity
+@Table(name = "users")
 public class User {
 
     @Id
