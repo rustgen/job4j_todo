@@ -55,8 +55,8 @@ public class UserController {
 
     @PostMapping("/signUp")
     public String login(@ModelAttribute User user, Model model, HttpSession session) {
-        Optional<User> userOpt = userService.add(user);
-        if (userOpt.isEmpty()) {
+        User added = userService.add(user);
+        if (added == null) {
             return "redirect:/signUp?fail=true";
         }
         getSession(model, session);
