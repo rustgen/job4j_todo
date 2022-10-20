@@ -13,6 +13,8 @@ import ru.job4j.todo.service.TaskService;
 
 import javax.servlet.http.HttpSession;
 
+import java.util.NoSuchElementException;
+
 import static ru.job4j.todo.util.UserSession.getSession;
 
 @Controller
@@ -49,7 +51,8 @@ public class TaskController {
 
     @GetMapping("/taskInfo/{taskId}")
     public String taskInfo(Model model, HttpSession session, @PathVariable("taskId") int id) {
-        model.addAttribute("task", service.findById(id));
+        model.addAttribute("task",
+                service.findById(id).orElseThrow(() -> new NoSuchElementException("No element")));
         getSession(model, session);
         return "taskInfo";
     }
