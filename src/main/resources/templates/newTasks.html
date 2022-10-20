@@ -56,6 +56,7 @@
                         <th scope="col">Tasks</th>
                         <th scope="col">Notes</th>
                         <th scope="col">Date</th>
+                        <th scope="col">User</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -64,6 +65,7 @@
                         <td th:text="${task.name}"></td>
                         <td th:text="${task.description}"></td>
                         <td th:text="${#temporals.format(task.created, 'dd-MMMM-yyyy', new java.util.Locale('en', 'EN'))}"></td>
+                        <td th:text="${task.user.name}"></td>
                     </tr>
                 </tbody>
             </table>

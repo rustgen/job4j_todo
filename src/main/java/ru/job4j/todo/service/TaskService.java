@@ -5,8 +5,6 @@ import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.todo.model.Task;
 import ru.job4j.todo.repository.TaskRepository;
-import ru.job4j.todo.repository.TaskStore;
-import ru.job4j.todo.repository.UserRepository;
 
 import java.util.List;
 import java.util.Optional;

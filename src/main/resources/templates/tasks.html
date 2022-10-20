@@ -57,6 +57,7 @@
                         <th scope="col">Note</th>
                         <th scope="col">Date</th>
                         <th scope="col">Status</th>
+                        <th scope="col">User</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -73,6 +74,7 @@
                         <td>
                             <span th:text="${task.isCompleted} ? 'Completed' : 'Not completed'"></span>
                         </td>
+                        <td th:text="${task.user.name}"></td>
                     </tr>
                 </tbody>
             </table>

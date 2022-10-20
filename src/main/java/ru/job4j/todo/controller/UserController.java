@@ -15,8 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
-import static ru.job4j.todo.util.UserSession.getSession;
-
 @Controller
 @AllArgsConstructor
 @ThreadSafe
@@ -25,18 +23,14 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/loginPage")
-    public String loginPage(Model model, @RequestParam(name = "fail", required = false) Boolean fail,
-                            HttpSession session) {
+    public String loginPage(Model model, @RequestParam(name = "fail", required = false) Boolean fail) {
         model.addAttribute("fail", fail != null);
-        getSession(model, session);
         return "login";
     }
 
     @GetMapping("/signUp")
-    public String signUpPage(Model model, @RequestParam(name = "fail", required = false) Boolean fail,
-                             HttpSession session) {
+    public String signUpPage(Model model, @RequestParam(name = "fail", required = false) Boolean fail) {
         model.addAttribute("fail", fail != null);
-        getSession(model, session);
         return "signUp";
     }
 
@@ -54,12 +48,11 @@ public class UserController {
     }
 
     @PostMapping("/signUp")
-    public String login(@ModelAttribute User user, Model model, HttpSession session) {
+    public String login(@ModelAttribute User user, Model model) {
         Optional<User> userOptional = userService.add(user);
         if (userOptional.isEmpty()) {
             return "redirect:/signUp?fail=true";
         }
-        getSession(model, session);
         return "redirect:/index";
     }
 

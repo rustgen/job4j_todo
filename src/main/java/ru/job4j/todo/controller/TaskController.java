@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.todo.model.Task;
+import ru.job4j.todo.model.User;
 import ru.job4j.todo.service.TaskService;
 
 import javax.servlet.http.HttpSession;
@@ -39,6 +40,8 @@ public class TaskController {
 
     @PostMapping("/createTask")
     public String createTask(@ModelAttribute Task task, Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        task.setUser(user);
         service.add(task);
         getSession(model, session);
         return "redirect:/tasks";
@@ -74,6 +77,8 @@ public class TaskController {
 
     @PostMapping("/updateTask")
     public String updateTask(@ModelAttribute Task task, Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        task.setUser(user);
         service.update(task.getId(), task);
         getSession(model, session);
         return "redirect:/tasks";
