@@ -1,4 +1,4 @@
-package ru.job4j.todo.store;
+package ru.job4j.todo.repository;
 
 import net.jcip.annotations.ThreadSafe;
 import org.hibernate.Session;

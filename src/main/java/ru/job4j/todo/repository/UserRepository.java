@@ -19,9 +19,9 @@ public class UserRepository {
      * @param user пользователь.
      * @return пользователь с id.
      */
-    public User create(User user) {
+    public Optional<User> add(User user) {
         crudRepository.run(session -> session.persist(user));
-        return user;
+        return Optional.of(user);
     }
 
     /**
@@ -37,8 +37,7 @@ public class UserRepository {
      * @param userId ID
      */
     public void delete(int userId) {
-        crudRepository.query("delete from User where id = :fId",
-                User.class,
+        crudRepository.run("delete from User where id = :fId",
                 Map.of("fId", userId));
     }
 

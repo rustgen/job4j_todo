@@ -1,4 +1,4 @@
-package ru.job4j.todo.store;
+package ru.job4j.todo.repository;
 
 import lombok.AllArgsConstructor;
 import net.jcip.annotations.ThreadSafe;

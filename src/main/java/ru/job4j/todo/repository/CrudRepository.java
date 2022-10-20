@@ -33,6 +33,18 @@ public class CrudRepository {
         }
     }
 
+    public void run(String query, Map<String, Object> args) {
+        Consumer<Session> command = session -> {
+            var sq = session
+                    .createQuery(query);
+            for (Map.Entry<String, Object> arg : args.entrySet()) {
+                sq.setParameter(arg.getKey(), arg.getValue());
+            }
+            sq.executeUpdate();
+        };
+        run(command);
+    }
+
     public void run(Consumer<Session> command) {
         tx(session -> {
                     command.accept(session);

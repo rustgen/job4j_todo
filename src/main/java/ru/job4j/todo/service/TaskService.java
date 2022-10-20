@@ -1,55 +1,56 @@
 package ru.job4j.todo.service;
 
+import lombok.AllArgsConstructor;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.todo.model.Task;
-import ru.job4j.todo.store.TaskStore;
+import ru.job4j.todo.repository.TaskRepository;
+import ru.job4j.todo.repository.TaskStore;
+import ru.job4j.todo.repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @ThreadSafe
+@AllArgsConstructor
 public class TaskService {
 
-    private final TaskStore store;
+    private TaskRepository taskRepository;
 
-    public TaskService(TaskStore store) {
-        this.store = store;
+    public Optional<Task> add(Task task) {
+        return taskRepository.add(task);
     }
 
-    public Task add(Task task) {
-        return store.add(task);
+    public void update(int id, Task task) {
+        taskRepository.update(id, task);
     }
 
-    public boolean update(int id, Task task) {
-        return store.update(id, task);
-    }
-
-    public boolean delete(int id) {
-        return store.delete(id);
+    public void delete(int id) {
+        taskRepository.delete(id);
     }
 
     public List<Task> findAll() {
-        return store.findAll();
+        return taskRepository.findAll();
     }
 
     public List<Task> findByName(String key) {
-        return store.findByName(key);
+        return taskRepository.findByName(key);
     }
 
-    public Task findById(int id) {
-        return store.findById(id);
+    public Optional<Task> findById(int id) {
+        return taskRepository.findById(id);
     }
 
     public List<Task> completed() {
-        return store.getStatuses(true);
+        return taskRepository.getStatuses(true);
     }
 
     public List<Task> notCompleted() {
-        return store.getStatuses(false);
+        return taskRepository.getStatuses(false);
     }
 
-    public boolean completedId(int id) {
-        return store.completedId(id);
+    public void completedId(int id) {
+        taskRepository.completedId(id);
     }
 }

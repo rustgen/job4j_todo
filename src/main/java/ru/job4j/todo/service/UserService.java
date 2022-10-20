@@ -5,7 +5,6 @@ import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.todo.model.User;
 import ru.job4j.todo.repository.UserRepository;
-import ru.job4j.todo.store.UserStore;
 
 import java.util.Optional;
 
@@ -16,8 +15,8 @@ public class UserService {
 
     private UserRepository userRepository;
 
-    public User add(User user) {
-        return userRepository.create(user);
+    public Optional<User> add(User user) {
+        return userRepository.add(user);
     }
 
     public Optional<User> findUserByLoginAndPassword(String login, String password) {
