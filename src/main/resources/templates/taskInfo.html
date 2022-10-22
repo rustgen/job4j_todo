@@ -108,6 +108,7 @@
                         <th scope="col">Date</th>
                         <th scope="col">Status</th>
                         <th scope="col">User</th>
+                        <th scope="col">Priority</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -122,6 +123,8 @@
                             <span th:text="${task.isCompleted} ? 'Completed' : 'Not Completed'"></span>
                         </td>
                         <td th:text="${task.user.name}"></td>
+                        <td th:text="${task.priority.name}"></td>
+
                     </tr>
                 </tbody>
             </table>

@@ -62,6 +62,12 @@
                             <label for="description">Note</label>
                             <input type="text" class="form-control" name="description" id="description" placeholder="put your note">
                         </div>
+                        <div class="form-group">
+                            <label for="priority.id">Priority</label>
+                            <select class="form-control" id="priority.id" name="priority.id">
+                                <option th:each="priority : ${priorities}" th:value="${priority.id}" th:text="${priority.name}" id="priority"></option>
+                            </select>
+                        </div>
                         <button type="submit" class="btn btn-primary mt-3">Save</button>
                     </form>
                 </div>

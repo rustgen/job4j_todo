@@ -37,6 +37,7 @@ public class TaskController {
     @GetMapping("/formAddTask")
     public String addTask(Model model, HttpSession session) {
         getSession(model, session);
+        model.addAttribute("priorities", service.findAllPriorities());
         return "addTask";
     }
 
@@ -53,6 +54,7 @@ public class TaskController {
     public String taskInfo(Model model, HttpSession session, @PathVariable("taskId") int id) {
         model.addAttribute("task",
                 service.findById(id).orElseThrow(() -> new NoSuchElementException("No element")));
+        model.addAttribute("priorities", service.findAllPriorities());
         getSession(model, session);
         return "taskInfo";
     }

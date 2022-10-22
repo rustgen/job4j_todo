@@ -30,7 +30,7 @@ public class TaskRepository {
     }
 
     public List<Task> findAll() {
-        return crudRepository.query("FROM Task",
+        return crudRepository.query("FROM Task JOIN FETCH priority",
                 Task.class);
     }
 
@@ -47,7 +47,7 @@ public class TaskRepository {
     }
 
     public List<Task> getStatuses(boolean completed) {
-        return crudRepository.query("FROM Task t WHERE t.completed = :fCompleted",
+        return crudRepository.query("FROM Task t JOIN FETCH t.priority WHERE t.completed = :fCompleted",
                 Task.class,
                 Map.of("fCompleted", completed));
     }
