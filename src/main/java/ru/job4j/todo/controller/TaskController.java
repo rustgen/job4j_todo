@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import ru.job4j.todo.model.Priority;
 import ru.job4j.todo.model.Task;
 import ru.job4j.todo.model.User;
 import ru.job4j.todo.service.TaskService;
@@ -54,7 +55,6 @@ public class TaskController {
     public String taskInfo(Model model, HttpSession session, @PathVariable("taskId") int id) {
         model.addAttribute("task",
                 service.findById(id).orElseThrow(() -> new NoSuchElementException("No element")));
-        model.addAttribute("priorities", service.findAllPriorities());
         getSession(model, session);
         return "taskInfo";
     }
@@ -76,15 +76,13 @@ public class TaskController {
     @GetMapping("/formUpdateTask/{taskId}")
     public String formUpdateTask(Model model, HttpSession session, @PathVariable("taskId") int id) {
         model.addAttribute("task", service.findById(id));
+        model.addAttribute("priorities", service.findAllPriorities());
         getSession(model, session);
         return "updateTask";
     }
 
     @PostMapping("/updateTask")
     public String updateTask(@ModelAttribute Task task, Model model, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        task.setUser(user);
-        service.update(task.getId(), task);
         getSession(model, session);
         return "redirect:/tasks";
     }

@@ -12,6 +12,28 @@ import java.util.Optional;
 @AllArgsConstructor
 public class TaskRepository {
 
+    private static final String UPDATE = """
+            UPDATE Task SET name = :fName, description = :fDescription, priority = :fPriority WHERE id = :fId
+            """;
+    private static final String DELETE = """
+            DELETE Task WHERE id = :fId
+            """;
+    private static final String FIND_ALL = """
+            FROM Task t JOIN FETCH t.priority
+            """;
+    private static final String FIND_BY_NAME = """
+            FROM Task t WHERE t.name like :fKey
+            """;
+    private static final String FIND_BY_ID = """
+            FROM Task t JOIN FETCH t.priority WHERE t.id = :fId
+            """;
+    private static final String GET_STATUSES = """
+            FROM Task t JOIN FETCH t.priority WHERE t.completed = :fCompleted
+            """;
+    private static final String COMPLETED_ID = """
+            UPDATE Task t SET t.completed = true WHERE t.id = :fId
+            """;
+
     private final CrudRepository crudRepository;
 
     public Optional<Task> add(Task task) {
@@ -20,40 +42,35 @@ public class TaskRepository {
     }
 
     public void update(int id, Task task) {
-        crudRepository.run("UPDATE Task SET name = :fName, description = :fDescription WHERE id = :fId",
-                Map.of("fName", task.getName(), "fDescription", task.getDescription(), "fId", id));
+        crudRepository.run(UPDATE,
+                Map.of("fName", task.getName(), "fDescription", task.getDescription(),
+                        "fPriority", task.getPriority(), "fId", id));
     }
 
     public void delete(int id) {
-        crudRepository.run("DELETE Task WHERE id = :fId",
-                Map.of("fId", id));
+        crudRepository.run(DELETE, Map.of("fId", id));
     }
 
     public List<Task> findAll() {
-        return crudRepository.query("FROM Task JOIN FETCH priority",
-                Task.class);
+        return crudRepository.query(FIND_ALL, Task.class);
     }
 
     public List<Task> findByName(String key) {
-        return crudRepository.query("FROM Task t WHERE t.name like :fKey",
-                Task.class,
+        return crudRepository.query(FIND_BY_NAME, Task.class,
                 Map.of("fKey", "%" + key + "%"));
     }
 
     public Optional<Task> findById(int id) {
-        return crudRepository.optional("FROM Task WHERE id = :fId",
-                Task.class,
+        return crudRepository.optional(FIND_BY_ID, Task.class,
                 Map.of("fId", id));
     }
 
     public List<Task> getStatuses(boolean completed) {
-        return crudRepository.query("FROM Task t JOIN FETCH t.priority WHERE t.completed = :fCompleted",
-                Task.class,
+        return crudRepository.query(GET_STATUSES, Task.class,
                 Map.of("fCompleted", completed));
     }
 
     public void completedId(int id) {
-        crudRepository.run("UPDATE Task t SET t.completed = true WHERE t.id = :fId",
-                Map.of("fId", id));
+        crudRepository.run(COMPLETED_ID, Map.of("fId", id));
     }
 }

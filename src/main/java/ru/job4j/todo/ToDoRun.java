@@ -15,7 +15,7 @@ public class ToDoRun {
                 .configure().build();
         try {
             SessionFactory sf = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-            var stored = listOf("from Task join fetch priority", Task.class, sf);
+            var stored = listOf("from Task t join fetch t.priority", Task.class, sf);
             for (Task task : stored) {
                 System.out.println(task.getPriority());
             }
